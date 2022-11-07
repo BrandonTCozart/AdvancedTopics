@@ -55,6 +55,11 @@ class SecondFragment2 : Fragment() {
             var age = binding.editTextAge.text.toString()
             var bio = binding.editTextDescription.text.toString()
             viewModel.writeNewNoteToDatabase(name, age, bio)
+
+            binding.editTextName.setText("")
+            binding.editTextAge.setText("")
+            binding.editTextDescription.setText("")
+
         }
 
         binding.button.setOnClickListener {
