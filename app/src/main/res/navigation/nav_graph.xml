@@ -14,6 +14,9 @@
         <action
             android:id="@+id/action_FirstFragment_to_SecondFragment"
             app:destination="@id/SecondFragment" />
+        <action
+            android:id="@+id/action_FirstFragment_to_retrofitFragment"
+            app:destination="@id/retrofitFragment" />
     </fragment>
     <fragment
         android:id="@+id/SecondFragment"
@@ -37,4 +40,9 @@
             android:id="@+id/action_secondFragment2_to_SecondFragment"
             app:destination="@id/SecondFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/retrofitFragment"
+        android:name="com.example.advancedtopics.Fragments.RetrofitFragment"
+        android:label="fragment_retrofit"
+        tools:layout="@layout/fragment_retrofit" />
 </navigation>

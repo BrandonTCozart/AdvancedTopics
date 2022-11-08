@@ -5,12 +5,15 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.activityViewModels
-import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.advancedtopics.Adapter.quoteAdapter
+import com.example.advancedtopics.Classes.AuthorQuote
 import com.example.advancedtopics.R
+import com.example.advancedtopics.ViewModels.RetrofitViewModel
 import com.example.advancedtopics.ViewModels.SecondFragment2ViewModel
-import com.example.advancedtopics.databinding.FragmentSecond2Binding
+import com.example.advancedtopics.databinding.FragmentRetrofitBinding
+import com.example.advancedtopics.databinding.FragmentSecondBinding
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -19,19 +22,18 @@ private const val ARG_PARAM2 = "param2"
 
 /**
  * A simple [Fragment] subclass.
- * Use the [SecondFragment2.newInstance] factory method to
+ * Use the [RetrofitFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class SecondFragment2 : Fragment() {
+class RetrofitFragment : Fragment() {
 
-    private var _binding: FragmentSecond2Binding? = null
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
+    private var _binding: FragmentRetrofitBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: SecondFragment2ViewModel by activityViewModels()
+    private val viewModel: RetrofitViewModel by activityViewModels()
 
+
+    lateinit var resultArray: ArrayList<AuthorQuote>
 
     // TODO: Rename and change types of parameters
     private var param1: String? = null
@@ -48,31 +50,12 @@ class SecondFragment2 : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        _binding = FragmentSecond2Binding.inflate(inflater, container, false)
+        _binding = FragmentRetrofitBinding.inflate(inflater, container, false)
 
-        binding.buttonCreateProfile.setOnClickListener {
-
-            if(binding.editTextName.text.isNotBlank() && binding.editTextAge.text.isNotBlank() && binding.editTextDescription.text.isNotBlank()){
-                var name = binding.editTextName.text.toString()
-                var age = binding.editTextAge.text.toString().toInt()
-                var bio = binding.editTextDescription.text.toString()
-                viewModel.writeNewProfileToDatabase(name, age, bio)
-
-                binding.editTextName.setText("")
-                binding.editTextAge.setText("")
-                binding.editTextDescription.setText("")
-
-                Toast.makeText(context, "Profile Created", Toast.LENGTH_SHORT).show()
-            }else{
-                Toast.makeText(context, "Has Empty Fields", Toast.LENGTH_SHORT).show()
-            }
-
-
-        }
-
-        binding.button.setOnClickListener {
-            findNavController().navigate(R.id.action_secondFragment2_to_SecondFragment)
-        }
+        resultArray = viewModel.handFullOfAuthorNames(10)
+        val adapter = quoteAdapter(resultArray)
+        binding.recyclerView.adapter = adapter
+        binding.recyclerView.layoutManager = LinearLayoutManager(context)
 
         return binding.root
     }
@@ -84,12 +67,12 @@ class SecondFragment2 : Fragment() {
          *
          * @param param1 Parameter 1.
          * @param param2 Parameter 2.
-         * @return A new instance of fragment SecondFragment2.
+         * @return A new instance of fragment RetrofitFragment.
          */
         // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
-            SecondFragment2().apply {
+            RetrofitFragment().apply {
                 arguments = Bundle().apply {
                     putString(ARG_PARAM1, param1)
                     putString(ARG_PARAM2, param2)

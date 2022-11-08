@@ -30,6 +30,9 @@ class HomeScreenFragment : Fragment() {
             findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
         }
 
+        binding.buttonRetrofit.setOnClickListener {
+            findNavController().navigate(R.id.action_FirstFragment_to_retrofitFragment)
+        }
 
 
         return binding.root

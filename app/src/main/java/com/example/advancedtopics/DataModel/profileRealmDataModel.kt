@@ -7,7 +7,7 @@ import io.realm.kotlin.types.annotations.PrimaryKey
 class ProfileRealmDataModel(): RealmObject {
 
     var displayName: String = ""
-    var age: String = ""
+    var age: Int = 0
     var bio: String = ""
     @PrimaryKey
     var userId: ObjectId = ObjectId.create()
