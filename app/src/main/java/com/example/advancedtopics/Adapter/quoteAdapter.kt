@@ -5,10 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.advancedtopics.Classes.AuthorQuote
-import com.example.advancedtopics.Classes.Profile
-import com.example.advancedtopics.DataClass.QuoteList
-import com.example.advancedtopics.DataClass.Result
+import com.example.advancedtopics.DataClass.AuthorQuote
 import com.example.advancedtopics.R
 
 class quoteAdapter(private val resultList: List<AuthorQuote>): RecyclerView.Adapter<quoteAdapter.ViewHolder>(){

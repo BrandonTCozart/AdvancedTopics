@@ -1,6 +1,7 @@
 package com.example.advancedtopics.Fragments
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -8,12 +9,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.advancedtopics.Adapter.quoteAdapter
-import com.example.advancedtopics.Classes.AuthorQuote
-import com.example.advancedtopics.R
+import com.example.advancedtopics.DataClass.AuthorQuote
 import com.example.advancedtopics.ViewModels.RetrofitViewModel
-import com.example.advancedtopics.ViewModels.SecondFragment2ViewModel
 import com.example.advancedtopics.databinding.FragmentRetrofitBinding
-import com.example.advancedtopics.databinding.FragmentSecondBinding
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -34,6 +32,7 @@ class RetrofitFragment : Fragment() {
 
 
     lateinit var resultArray: ArrayList<AuthorQuote>
+    lateinit var adapter: quoteAdapter
 
     // TODO: Rename and change types of parameters
     private var param1: String? = null
@@ -52,10 +51,35 @@ class RetrofitFragment : Fragment() {
         // Inflate the layout for this fragment
         _binding = FragmentRetrofitBinding.inflate(inflater, container, false)
 
+        /*
         resultArray = viewModel.handFullOfAuthorNames(10)
         val adapter = quoteAdapter(resultArray)
         binding.recyclerView.adapter = adapter
         binding.recyclerView.layoutManager = LinearLayoutManager(context)
+
+         */
+
+        resultArray = ArrayList()
+
+        for(i in 1..10){
+            resultArray.add(AuthorQuote(viewModel.getApiAuthorName(i), viewModel.getApiAuthorQuote(i)))
+        }
+
+
+        adapter = quoteAdapter(resultArray)
+        binding.recyclerView.adapter = adapter
+        binding.recyclerView.layoutManager = LinearLayoutManager(context)
+
+        var i:Int = 1
+        binding.button3.setOnClickListener {
+
+            binding.textView4.setText(viewModel.oneBigLump())
+            resultArray.clear()
+            for(i in 1..10){
+                resultArray.add(AuthorQuote(viewModel.getApiAuthorName(i), viewModel.getApiAuthorQuote(i)))
+            }
+        }
+
 
         return binding.root
     }

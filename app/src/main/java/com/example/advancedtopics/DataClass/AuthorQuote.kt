@@ -1,4 +1,4 @@
-package com.example.advancedtopics.Classes
+package com.example.advancedtopics.DataClass
 
 data class AuthorQuote(
     var aName: String,
