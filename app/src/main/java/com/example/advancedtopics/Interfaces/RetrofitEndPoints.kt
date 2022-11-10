@@ -1,6 +1,7 @@
 package com.example.advancedtopics.Interfaces
 
 import com.example.advancedtopics.DataClass.QuoteList
+import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.GET
 
@@ -14,5 +15,9 @@ interface RetrofitEndPoints {
 
     @GET("/quotes2")
     suspend fun getQuotes2() : Response<QuoteList>
+
+    @GET("/quotes")
+    fun getQuotes5() : Call<List<com.example.advancedtopics.DataClass.Result>>
+
 
 }

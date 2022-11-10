@@ -1,15 +1,16 @@
 package com.example.advancedtopics.Fragments
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.advancedtopics.Activities.MainActivity
 import com.example.advancedtopics.Adapter.quoteAdapter
-import com.example.advancedtopics.DataClass.AuthorQuote
 import com.example.advancedtopics.ViewModels.RetrofitViewModel
 import com.example.advancedtopics.databinding.FragmentRetrofitBinding
 
@@ -31,7 +32,7 @@ class RetrofitFragment : Fragment() {
     private val viewModel: RetrofitViewModel by activityViewModels()
 
 
-    lateinit var resultArray: ArrayList<AuthorQuote>
+    lateinit var resultArray: ArrayList<com.example.advancedtopics.DataClass.Result>
     lateinit var adapter: quoteAdapter
 
     // TODO: Rename and change types of parameters
@@ -44,6 +45,7 @@ class RetrofitFragment : Fragment() {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
+
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -59,29 +61,36 @@ class RetrofitFragment : Fragment() {
 
          */
 
-        resultArray = ArrayList()
 
-        for(i in 1..10){
-            resultArray.add(AuthorQuote(viewModel.getApiAuthorName(i), viewModel.getApiAuthorQuote(i)))
-        }
+        //resultArray =  viewModel.handFullOfAuthorNames(10)
 
-
-        adapter = quoteAdapter(resultArray)
-        binding.recyclerView.adapter = adapter
         binding.recyclerView.layoutManager = LinearLayoutManager(context)
+        adapter = quoteAdapter()
+        binding.recyclerView.adapter = adapter
 
-        var i:Int = 1
+        initViewModel()
+
+
+
         binding.button3.setOnClickListener {
 
-            binding.textView4.setText(viewModel.oneBigLump())
-            resultArray.clear()
-            for(i in 1..10){
-                resultArray.add(AuthorQuote(viewModel.getApiAuthorName(i), viewModel.getApiAuthorQuote(i)))
-            }
         }
 
 
         return binding.root
+    }
+
+    private fun initViewModel(){
+        viewModel.getLiveDataObserver().observe(viewLifecycleOwner, Observer {
+            if(it !=null){
+                adapter.setQuoteList(it)
+                adapter.notifyDataSetChanged()
+
+            }else{
+                Toast.makeText(context, "nope", Toast.LENGTH_SHORT).show()
+            }
+        })
+        viewModel.makeApiCall()
     }
 
     companion object {
