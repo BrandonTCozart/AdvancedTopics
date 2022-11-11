@@ -47,19 +47,20 @@ class RoomFragment : Fragment() {
         _binding = FragmentRoomBinding.inflate(inflater, container, false)
 
 
+
         binding.buttonCreateEntry.setOnClickListener {
 
-            viewModel.insertDesc(context!!, Description(1,binding.editTextTextName.text.toString(), binding.editTextTextNameDescription.text.toString()))
+            viewModel.insertDesc(context!!, Description(Integer.parseInt(binding.editTextTextId.text.toString()),binding.editTextTextName.text.toString(), binding.editTextTextNameDescription.text.toString()))
 
         }
 
 
         binding.buttonGetEntry.setOnClickListener {
 
-            var ll = viewModel.getSpecificDescription(context!!, binding.editTextTextNameEnquire.text.toString())
-            binding.textViewDescriptionEnquire.text = ll
+            binding.textViewDescriptionEnquire.text = viewModel.getSpecificDescription(context!!, binding.editTextTextNameEnquire.text.toString())
 
         }
+
 
 
         return binding.root

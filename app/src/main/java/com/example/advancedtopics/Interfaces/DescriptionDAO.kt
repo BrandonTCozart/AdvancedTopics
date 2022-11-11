@@ -11,6 +11,7 @@ interface DescriptionDAO { // DAO Stands for Data Access Object //
     @Query("SELECT * FROM description")
     fun getAll(): List<Description>
 
+
     @Query("SELECT * FROM description WHERE first_name LIKE :Fname")
     fun getSpecific(Fname: String): List<Description>
 

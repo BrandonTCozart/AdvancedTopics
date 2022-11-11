@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 
 @Entity
 data class Description(
-    @PrimaryKey val dID: Int,
+    @PrimaryKey var dID: Int,
     @ColumnInfo(name = "first_name")  val firstName: String?,
     @ColumnInfo(name = "description") val description: String?
 )
