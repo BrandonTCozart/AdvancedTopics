@@ -5,7 +5,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.fragment.app.activityViewModels
+import com.example.advancedtopics.DataClass.Description
 import com.example.advancedtopics.R
+import com.example.advancedtopics.databinding.FragmentRoomBinding
+import com.example.advancedtopics.ViewModels.roomDataViewModel
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -18,6 +23,12 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 class RoomFragment : Fragment() {
+
+    private var _binding:FragmentRoomBinding? = null
+    private val binding get() = _binding!!
+
+    private val viewModel: roomDataViewModel by activityViewModels()
+
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -33,7 +44,26 @@ class RoomFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_room, container, false)
+        _binding = FragmentRoomBinding.inflate(inflater, container, false)
+
+
+        binding.buttonCreateEntry.setOnClickListener {
+
+            viewModel.insertDesc(context!!, Description(1,binding.editTextTextName.text.toString(), binding.editTextTextNameDescription.text.toString()))
+
+        }
+
+
+        binding.buttonGetEntry.setOnClickListener {
+
+            var ll = viewModel.getSpecificDescription(context!!, binding.editTextTextNameEnquire.text.toString())
+            binding.textViewDescriptionEnquire.text = ll
+
+        }
+
+
+        return binding.root
+
     }
 
     companion object {
