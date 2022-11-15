@@ -4,6 +4,7 @@ package com.example.advancedtopics.ViewModels
 import android.app.Application
 import android.content.Context
 import android.widget.Toast
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.room.Room
 import com.example.advancedtopics.Classes.AppDatabase
@@ -13,11 +14,12 @@ import com.example.advancedtopics.Interfaces.DescriptionDAO
 class roomDataViewModel(): ViewModel() {
 
 
-
+    // Create a LiveData with a String //
+    val currentName: MutableLiveData<String> by lazy {
+        MutableLiveData<String>()
+    }
 
     var described: String = ""
-
-
 
 
     fun insertDesc(applicationContext: Context, description: Description){
@@ -30,10 +32,14 @@ class roomDataViewModel(): ViewModel() {
         val descriptionDao = db.descriptionDao()
 
         Thread(Runnable {
-            descriptionDao.insertDescription(description)
+            try {
+                descriptionDao.insertDescription(description)
+            }catch (e: Exception){
+                //Toast.makeText(applicationContext, "Error", Toast.LENGTH_SHORT).show()
+            }
         }).start()
 
-        Toast.makeText(applicationContext, "Inserted", Toast.LENGTH_SHORT).show()
+        //Toast.makeText(applicationContext, "Inserted", Toast.LENGTH_SHORT).show()
 
     }
 

@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Observer
 import com.example.advancedtopics.DataClass.Description
 import com.example.advancedtopics.R
 import com.example.advancedtopics.databinding.FragmentRoomBinding
@@ -39,7 +40,19 @@ class RoomFragment : Fragment() {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
+
+        // Create the observer which updates the UI.
+        val nameObserver = Observer<String> { newName ->
+            // Update the UI, in this case, a TextView.
+            binding.textView5.text = newName
+        }
+
+        // Observe the LiveData, passing in this activity as the LifecycleOwner and the observer.
+        viewModel.currentName.observe(this, nameObserver)
     }
+
+
+
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
@@ -50,7 +63,17 @@ class RoomFragment : Fragment() {
 
         binding.buttonCreateEntry.setOnClickListener {
 
-            viewModel.insertDesc(context!!, Description(Integer.parseInt(binding.editTextTextId.text.toString()),binding.editTextTextName.text.toString(), binding.editTextTextNameDescription.text.toString()))
+            if(binding.editTextTextName.text.isBlank()||binding.editTextTextNameDescription.text.isBlank()||binding.editTextTextId.text.isBlank()){
+                Toast.makeText(context, "All Fields Must Be Filled", Toast.LENGTH_SHORT).show()
+            }else{
+                viewModel.insertDesc(context!!, Description(Integer.parseInt(binding.editTextTextId.text.toString()),binding.editTextTextName.text.toString(), binding.editTextTextNameDescription.text.toString()))
+                binding.editTextTextName.setText("")
+                binding.editTextTextNameDescription.setText("")
+                binding.editTextTextId.setText("")
+            }
+
+
+
 
         }
 
@@ -58,6 +81,13 @@ class RoomFragment : Fragment() {
         binding.buttonGetEntry.setOnClickListener {
 
             binding.textViewDescriptionEnquire.text = viewModel.getSpecificDescription(context!!, binding.editTextTextNameEnquire.text.toString())
+
+        }
+
+        binding.button7.setOnClickListener {
+
+            //viewModel.currentName.value(binding.editTextTextPersonName.text)
+            viewModel.currentName.postValue(binding.editTextTextPersonName.text.toString())
 
         }
 

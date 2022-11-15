@@ -38,6 +38,10 @@ class HomeScreenFragment : Fragment() {
             findNavController().navigate(R.id.action_FirstFragment_to_roomFragment)
         }
 
+        binding.buttonService.setOnClickListener{
+             findNavController().navigate(R.id.action_FirstFragment_to_serviceFragment)
+        }
+
 
         return binding.root
 
