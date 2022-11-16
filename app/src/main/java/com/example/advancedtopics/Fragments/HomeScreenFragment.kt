@@ -42,6 +42,10 @@ class HomeScreenFragment : Fragment() {
              findNavController().navigate(R.id.action_FirstFragment_to_serviceFragment)
         }
 
+        binding.buttonSwitch.setOnClickListener {
+
+        }
+
 
         return binding.root
 

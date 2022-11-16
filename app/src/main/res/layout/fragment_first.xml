@@ -68,4 +68,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/buttonRoom" />
 
+    <Button
+        android:id="@+id/buttonSwitch"
+        android:layout_width="218dp"
+        android:layout_height="46dp"
+        android:layout_marginStart="96dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="97dp"
+        android:text="Launch Other app"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonService" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
