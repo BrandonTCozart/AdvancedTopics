@@ -23,6 +23,9 @@
         <action
             android:id="@+id/action_FirstFragment_to_serviceFragment"
             app:destination="@id/serviceFragment" />
+        <action
+            android:id="@+id/action_FirstFragment_to_backgroundFragment"
+            app:destination="@id/backgroundFragment" />
     </fragment>
     <fragment
         android:id="@+id/SecondFragment"
@@ -61,4 +64,9 @@
         android:name="com.example.advancedtopics.Fragments.ServiceFragment"
         android:label="fragment_service"
         tools:layout="@layout/fragment_service" />
+    <fragment
+        android:id="@+id/backgroundFragment"
+        android:name="com.example.advancedtopics.Fragments.BackgroundFragment"
+        android:label="fragment_background"
+        tools:layout="@layout/fragment_background" />
 </navigation>

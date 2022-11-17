@@ -46,6 +46,10 @@ class HomeScreenFragment : Fragment() {
 
         }
 
+        binding.button6.setOnClickListener {
+            findNavController().navigate(R.id.action_FirstFragment_to_backgroundFragment)
+        }
+
 
         return binding.root
 
