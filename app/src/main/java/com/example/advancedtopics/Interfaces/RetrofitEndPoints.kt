@@ -17,7 +17,7 @@ interface RetrofitEndPoints {
     suspend fun getQuotes2() : Response<QuoteList>
 
     @GET("/quotes")
-    fun getQuotes5() : Call<List<com.example.advancedtopics.DataClass.Result>>
+    suspend fun getQuotes5() : Call<List<com.example.advancedtopics.DataClass.Result>>
 
 
 }

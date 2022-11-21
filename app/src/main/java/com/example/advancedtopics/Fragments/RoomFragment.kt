@@ -41,14 +41,7 @@ class RoomFragment : Fragment() {
             param2 = it.getString(ARG_PARAM2)
         }
 
-        // Create the observer which updates the UI.
-        val nameObserver = Observer<String> { newName ->
-            // Update the UI, in this case, a TextView.
-            binding.textView5.text = newName
-        }
 
-        // Observe the LiveData, passing in this activity as the LifecycleOwner and the observer.
-        viewModel.currentName.observe(this, nameObserver)
     }
 
 
@@ -83,12 +76,7 @@ class RoomFragment : Fragment() {
 
         }
 
-        binding.button7.setOnClickListener {
 
-            //viewModel.currentName.value(binding.editTextTextPersonName.text)
-            viewModel.currentName.postValue(binding.editTextTextPersonName.text.toString())
-
-        }
 
 
 

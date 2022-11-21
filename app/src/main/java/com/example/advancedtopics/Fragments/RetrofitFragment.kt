@@ -5,12 +5,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.advancedtopics.Activities.MainActivity
 import com.example.advancedtopics.Adapter.quoteAdapter
+import com.example.advancedtopics.R
 import com.example.advancedtopics.ViewModels.RetrofitViewModel
 import com.example.advancedtopics.databinding.FragmentRetrofitBinding
 
@@ -53,22 +53,22 @@ class RetrofitFragment : Fragment() {
         // Inflate the layout for this fragment
         _binding = FragmentRetrofitBinding.inflate(inflater, container, false)
 
-        /*
-        resultArray = viewModel.handFullOfAuthorNames(10)
-        val adapter = quoteAdapter(resultArray)
-        binding.recyclerView.adapter = adapter
-        binding.recyclerView.layoutManager = LinearLayoutManager(context)
-
-         */
 
 
-        //resultArray =  viewModel.handFullOfAuthorNames(10)
+        viewModel.makeApiCall()
 
         binding.recyclerView.layoutManager = LinearLayoutManager(context)
-        adapter = quoteAdapter()
-        binding.recyclerView.adapter = adapter
 
-        initViewModel()
+        val nameObserver = Observer<List<com.example.advancedtopics.DataClass.Result>> { newName ->
+            // Update the UI, in this case, a TextView.
+            //binding.textView.text = newName.toString()
+            adapter = quoteAdapter(viewModel.liveDataList)
+            binding.recyclerView.adapter = adapter
+        }
+
+        viewModel.liveDataList.observe(viewLifecycleOwner, nameObserver)
+
+
 
 
 
@@ -76,22 +76,15 @@ class RetrofitFragment : Fragment() {
 
         }
 
+        binding.button2.setOnClickListener {
+            findNavController().navigate(R.id.action_retrofitFragment_to_FirstFragment)
+        }
+
 
         return binding.root
     }
 
-    private fun initViewModel(){
-        viewModel.getLiveDataObserver().observe(viewLifecycleOwner, Observer {
-            if(it !=null){
-                adapter.setQuoteList(it)
-                adapter.notifyDataSetChanged()
 
-            }else{
-                Toast.makeText(context, "nope", Toast.LENGTH_SHORT).show()
-            }
-        })
-        viewModel.makeApiCall()
-    }
 
     companion object {
         /**

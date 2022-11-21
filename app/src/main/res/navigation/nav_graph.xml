@@ -53,7 +53,11 @@
         android:id="@+id/retrofitFragment"
         android:name="com.example.advancedtopics.Fragments.RetrofitFragment"
         android:label="fragment_retrofit"
-        tools:layout="@layout/fragment_retrofit" />
+        tools:layout="@layout/fragment_retrofit" >
+        <action
+            android:id="@+id/action_retrofitFragment_to_FirstFragment"
+            app:destination="@id/FirstFragment" />
+    </fragment>
     <fragment
         android:id="@+id/roomFragment"
         android:name="com.example.advancedtopics.Fragments.RoomFragment"
