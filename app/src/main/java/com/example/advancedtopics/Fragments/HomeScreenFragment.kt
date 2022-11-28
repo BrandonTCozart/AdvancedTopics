@@ -50,6 +50,10 @@ class HomeScreenFragment : Fragment() {
             findNavController().navigate(R.id.action_FirstFragment_to_backgroundFragment)
         }
 
+        binding.buttonOpen.setOnClickListener {
+            findNavController().navigate(R.id.action_FirstFragment_to_openFragment)
+        }
+
 
         return binding.root
 

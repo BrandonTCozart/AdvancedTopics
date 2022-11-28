@@ -26,6 +26,9 @@
         <action
             android:id="@+id/action_FirstFragment_to_backgroundFragment"
             app:destination="@id/backgroundFragment" />
+        <action
+            android:id="@+id/action_FirstFragment_to_openFragment"
+            app:destination="@id/openFragment" />
     </fragment>
     <fragment
         android:id="@+id/SecondFragment"
@@ -73,4 +76,13 @@
         android:name="com.example.advancedtopics.Fragments.BackgroundFragment"
         android:label="fragment_background"
         tools:layout="@layout/fragment_background" />
+    <fragment
+        android:id="@+id/openFragment"
+        android:name="com.example.advancedtopics.Fragments.OpenFragment"
+        android:label="fragment_open"
+        tools:layout="@layout/fragment_open" >
+        <action
+            android:id="@+id/action_openFragment_to_FirstFragment"
+            app:destination="@id/FirstFragment" />
+    </fragment>
 </navigation>
