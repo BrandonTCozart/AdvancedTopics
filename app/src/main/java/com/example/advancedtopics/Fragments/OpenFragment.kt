@@ -1,5 +1,6 @@
 package com.example.advancedtopics.Fragments
 
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -8,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.example.advancedtopics.Interfaces.IActivityTransaction
 import com.example.advancedtopics.databinding.FragmentOpenBinding
 
 
@@ -62,15 +64,22 @@ class OpenFragment : Fragment() {
 
 
 
+            /*
             var intent:Intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://www.youtube.com/"))
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             intent.setPackage("com.google.android.youtube")
             startActivity(intent)
 
+             */
+
+            Ilistener.toNewApplication()
+
         }
 
         return binding.root
     }
+
+
 
     companion object {
         /**
@@ -91,4 +100,20 @@ class OpenFragment : Fragment() {
                 }
             }
     }
+
+
+
+
+
+    lateinit var Ilistener: IActivityTransaction
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        if(context is IActivityTransaction){
+            Ilistener = context // Ilistener is equal to the context which is the main activity
+        }else{
+            throw java.lang.RuntimeException("must apply context")
+        }
+    }
+
 }
